@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Customer {
-	
+	/////
 	///A common method to connect to the DB
 			private Connection connect() 
 				{ 
