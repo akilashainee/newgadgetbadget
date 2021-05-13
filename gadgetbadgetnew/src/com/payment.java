@@ -11,7 +11,7 @@ import java.sql.*;
 
 		 try
 		 {
-			 Class.forName("com.mysql.jdbc.Driver");
+			 Class.forName("com.mysql.cj.jdbc.Driver");
 			 con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/newdb ","root", "");
 		
 			 //For testing
@@ -28,7 +28,7 @@ import java.sql.*;
 		
 		
 		//read data
-			public String readpayment()
+			public String readItems()
 			{ 
 				String output = ""; 
 				try
@@ -41,8 +41,17 @@ import java.sql.*;
 					 
 			 // Prepare the html table to be displayed
 					
-					 output = "<table border='1'><tr><th> amount</th><th>cardNo</th><th>cardName</th>"
-								+ "<th>cardType</th><th>expMonth</th><th>expYear</th><th>CVV</th><th>Update</th><th>Remove</th></tr>";
+					 output = "<table border='1'><tr>"
+						 		+ "<th> PID</th>"
+						 		+ "<th> amount</th>"
+						 		+ "<th>cardNo</th>"
+						 		+ "<th>cardName</th>"
+								+ "<th>cardType</th>"
+								+ "<th>expMonth</th>"
+								+ "<th>expYear</th>"
+								+ "<th>CVV</th>"
+								+ "<th>Update</th>"
+								+ "<th>Remove</th></tr>";
 								
 								String query = "select * from payment";
 					 Statement stmt = con.createStatement();
@@ -61,14 +70,23 @@ import java.sql.*;
 						 String CVV = rs.getString("CVV"); 
 						 
 			 // Add into the html table
-						 output += "<tr><td><input id ='hidPIDUpdate' name ='hidPIDUpdate'type='hidden' value='" + PID + "</td>";
-						 output += "<td>" + amount + "</td>";
-						 output += "<td>" + cardNo + "</td>"; 
-						 output += "<td>" + cardName + "</td>"; 
-						 output += "<td>" + cardType + "</td>";
-						 output += "<td>" + expMonth + "</td>";
-						 output += "<td>" + expYear + "</td>";
-						 output += "<td>" + CVV + "</td>";
+						// output += "<tr><td><input id ='hidPIDUpdate' name ='hidPIDUpdate'type='hidden' value='" + PID + "</td>";
+						// output += "<td>" + amount + "</td>";
+						// output += "<td>" + cardNo + "</td>"; 
+						/// output += "<td>" + cardName + "</td>"; 
+						// output += "<td>" + cardType + "</td>";
+						// output += "<td>" + expMonth + "</td>";
+						// output += "<td>" + expYear + "</td>";
+						// output += "<td>" + CVV + "</td>";
+						 
+						 	output += "<tr><td>" + PID + "</td>"; 
+							output += "<td>" + amount + "</td>"; 
+							output += "<td>" + cardNo + "</td>"; 
+							output += "<td>" + cardName + "</td>"; 
+							output += "<td>" + cardType + "</td>";
+							output += "<td>" + expMonth + "</td>";
+							output += "<td>" + expYear + "</td>";
+							output += "<td>" + CVV + "</td>";
 			 // buttons
 						 output += "<td><input name='btnUpdate' type='button' value='Update' class=' btnUpdate btn btn-secondary'>"
 						 		+ "</td><td><form method='post' action='payment.jsp'>"
@@ -89,7 +107,7 @@ import java.sql.*;
 			}
 			
 			//insert data
-			public String insertpayment( String amount, String cardNo, String cardName,String cardType,String expMonth,String expYear,String CVV) {
+			public String insertItem( String amount, String cardNo, String cardName,String cardType,String expMonth,String expYear,String CVV) {
 				
 				 String output = ""; 
 				 
@@ -103,7 +121,8 @@ import java.sql.*;
 				 	} 
 				 
 				 // create a prepared statement
-				 String query = " insert into payment(PID,amount,cardNo,cardName,cardType,expMonth,expYear,CVV)values (?, ?, ?, ?, ? ,? , ? ,?)"; 
+				 String query = " insert into payment (`PID`,`amount`,`cardNo`,`cardName`,`cardType`,`expMonth`,`expYear`,`CVV`)"
+				 		+ "values (?, ?, ?, ?, ? ,? , ? ,?)"; 
 				 PreparedStatement preparedStmt = con.prepareStatement(query); 
 				 
 				 // binding values
@@ -121,7 +140,7 @@ import java.sql.*;
 				//execute the statement
 				 preparedStmt.execute(); 
 				 con.close(); 
-				 String newpayment = readpayment();
+				 String newpayment = readItems();
 					output = "{\"status\":\"success\", \"data\": \"" +newpayment + "\"}";
 				}
 				 
@@ -136,7 +155,7 @@ import java.sql.*;
 
 
 
-			public String updatepayment(String PID,String amount,String cardNo,String cardName,String cardType,String expMonth,String expYear,String CVV)
+			public String updateItem(String PID,String amount,String cardNo,String cardName,String cardType,String expMonth,String expYear,String CVV)
 			{ 
 				String output = ""; 
 				try
@@ -163,7 +182,7 @@ import java.sql.*;
 					 // execute the statement
 					 preparedStmt.execute(); 
 					 con.close(); 
-					 String newpayment = readpayment();
+					 String newpayment = readItems();
 						output = "{\"status\":\"success\", \"data\": \"" + newpayment + "\"}";
 					}
 				catch (Exception e) 
@@ -174,7 +193,7 @@ import java.sql.*;
 				return output; 
 			}
 
-			public String deletepayment(String PID)
+			public String deleteItem(String PID)
 			{ 
 				String output = ""; 
 				try
@@ -193,8 +212,8 @@ import java.sql.*;
 					 // execute the statement
 					 preparedStmt.execute(); 
 					 con.close(); 
-					 String newpayment = readpayment();
-						output = "{\"status\":\"success\", \"data\": \"" + newpayment + "\"}";
+					 String newItems = readItems();
+						output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}";
 					}
 				catch (Exception e) 
 				 { 

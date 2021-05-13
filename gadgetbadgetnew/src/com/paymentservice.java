@@ -1,6 +1,6 @@
 package com;
 
-import model.payment; 
+import com.payment; 
 //For REST Service
 import javax.ws.rs.*; 
 import javax.ws.rs.core.MediaType; 
@@ -15,13 +15,13 @@ import org.jsoup.nodes.Document;
 
 public class paymentservice {
 	
-	 payment itemObj = new payment(); 
+	 payment payObj = new payment(); 
 	@GET
 	@Path("/") 
 	@Produces(MediaType.TEXT_HTML) 
 	public String readItems() 
 	 { 
-		 return itemObj.readItems();
+		 return payObj.readItems();
 	 } 
 	
 	
@@ -41,7 +41,7 @@ public class paymentservice {
 	@FormParam("CVV") String CVV)
 
 	{ 
-	 String output = itemObj.insertpayment( amount,  cardName,  cardType, cardNo,expMonth, expYear, CVV); 
+	 String output = payObj.insertItem( amount,  cardName,  cardType, cardNo,expMonth, expYear, CVV); 
 	return output; 
 	}
 
@@ -51,21 +51,21 @@ public class paymentservice {
 	@Path("/") 
 	@Consumes(MediaType.APPLICATION_JSON) 
 	@Produces(MediaType.TEXT_PLAIN) 
-	public String updateItem(String itemData) 
+	public String updateItem(String paymentData) 
 	{ 
 	//Convert the input string to a JSON object 
-	 JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject(); 
+	 JsonObject paymentObject = new JsonParser().parse(paymentData).getAsJsonObject(); 
 	//Read the values from the JSON object
-	 String PID = itemObject.get("PID").getAsString(); 
-	 String amount = itemObject.get("amount").getAsString(); 
-	 String cardNo = itemObject.get("cardNo").getAsString(); 
-	 String cardName = itemObject.get("cardName").getAsString(); 
-	 String cardType = itemObject.get("cardType").getAsString();
-	 String expMonth = itemObject.get("expMonth").getAsString();
-	 String expYear = itemObject.get("expYear").getAsString();
-	 String CVV = itemObject.get("CVV").getAsString();
+	 String PID = paymentObject.get("PID").getAsString(); 
+	 String amount = paymentObject.get("amount").getAsString(); 
+	 String cardNo = paymentObject.get("cardNo").getAsString(); 
+	 String cardName = paymentObject.get("cardName").getAsString(); 
+	 String cardType = paymentObject.get("cardType").getAsString();
+	 String expMonth = paymentObject.get("expMonth").getAsString();
+	 String expYear = paymentObject.get("expYear").getAsString();
+	 String CVV = paymentObject.get("CVV").getAsString();
 
-	 String output = itemObj.updatepayment(PID,amount, cardName,  cardType, cardNo,expMonth, expYear, CVV); 
+	 String output = payObj.updateItem(PID,amount, cardName,  cardType, cardNo,expMonth, expYear, CVV); 
 	return output; 
 	}
 	
@@ -74,14 +74,14 @@ public class paymentservice {
 	@Path("/") 
 	@Consumes(MediaType.APPLICATION_XML) 
 	@Produces(MediaType.TEXT_PLAIN) 
-	public String deleteItem(String itemData) 
+	public String deleteItem(String paymentData) 
 	{ 
 	//Convert the input string to an XML document
-	 Document doc = Jsoup.parse(itemData, "", Parser.xmlParser()); 
+	 Document doc = Jsoup.parse(paymentData, "", Parser.xmlParser()); 
 	 
 	//Read the value from the element <itemID>
 	 String PID = doc.select("PID").text(); 
-	 String output = itemObj.deletepayment(PID); 
+	 String output = payObj.deleteItem(PID); 
 	return output; 
 	}
 	

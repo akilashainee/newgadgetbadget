@@ -14,7 +14,7 @@ pageEncoding="ISO-8859-1"%>
 <body>
 <div class="container">
 		<div class="row">
-			<div class="col-9">
+			<div class="col-5">
 				<h1>Payment Management</h1>
 		<br>
 	<form id="formpayment" name="formpayment" method="post" action="payment.jsp">
@@ -62,7 +62,7 @@ pageEncoding="ISO-8859-1"%>
 
 			<%
 			payment payObj = new payment(); 
-			 out.print(payObj.readpayment()); 
+			 out.print(payObj.readItems()); 
 			%>
 					</div>
 				</div> 
