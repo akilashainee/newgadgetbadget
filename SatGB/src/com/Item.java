@@ -166,7 +166,7 @@ public String updateItem(String ID, String name, String cat,String price, String
 	}
 
 
-public String deleteItem(String iD)
+public String deleteItem(String itemID)
 	{
 			String output = "";
 	try
@@ -182,7 +182,7 @@ public String deleteItem(String iD)
 	PreparedStatement preparedStmt = con.prepareStatement(query);
 	
 	// binding values
-	preparedStmt.setInt(1, Integer.parseInt(iD));
+	preparedStmt.setInt(1, Integer.parseInt(itemID));
 	
 	// execute the statement
 	preparedStmt.execute();

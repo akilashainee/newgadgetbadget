@@ -45,7 +45,7 @@ if (status != true)
 // UPDATE========================================================================
 $(document).on("click", ".btnUpdate", function(event) 
 { 
- $("#hidItemIDSave").val($(this).data("ItemID")); 
+ $("#hidItemIDSave").val($(this).data("itemid")); 
  $("#Itemname").val($(this).closest("tr").find('td:eq(0)').text()); 
  $("#Itemcategory").val($(this).closest("tr").find('td:eq(1)').text()); 
  $("#Price").val($(this).closest("tr").find('td:eq(2)').text()); 
@@ -55,6 +55,7 @@ $(document).on("click", ".btnUpdate", function(event)
 //ItemSaveComplete function
  function onItemSaveComplete(response, status)
 { 
+
 	if (status == "success") 
  	{ 
  		var resultSet = JSON.parse(response); 
@@ -90,7 +91,7 @@ $.ajax(
 {
 	url : "SellingAPI",
 	type : "DELETE",
-	data : "ItemID=" + $(this).data("ItemID"),
+	data : "ItemID=" + $(this).data("itemid"),
 	dataType : "text",
 	complete : function(response, status)
 {

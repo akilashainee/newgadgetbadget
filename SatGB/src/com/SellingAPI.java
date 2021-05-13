@@ -70,6 +70,8 @@ public class SellingAPI extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		
+		//System.out.println("request recieved");
+
 		String output = itemObj.insertItem(
 				request.getParameter("Itemname"),
 				request.getParameter("Itemcategory"),
