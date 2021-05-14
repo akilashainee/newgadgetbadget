@@ -69,7 +69,7 @@ public class Customer {
 				catch (Exception e) 
 				{ 
 					 
-					output = "Error while inserting the item."; 
+					output = "Error while inster the items."; 
 					System.err.println(e.getMessage()); 
 					 
 				} 
